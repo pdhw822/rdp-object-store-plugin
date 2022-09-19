@@ -1,6 +1,10 @@
 plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.13.6'
     id 'groovy'
 }
+
+group = "org.rundeck.plugins"
+archivesBaseName = "object-store-plugin"
 
 ext.pluginClassNames='org.rundeck.plugin.objectstore.ObjectStorePlugin'
 ext.pluginName = 'Object Store Plugin'
@@ -13,6 +17,20 @@ configurations{
     implementation {
         extendsFrom pluginLibs
     }
+}
+
+scmVersion{
+    tag {
+        prefix = 'v'
+        versionSeparator = ''
+    }
+}
+
+version=scmVersion.version
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
 }
 
 dependencies {
