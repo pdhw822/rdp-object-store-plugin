@@ -44,3 +44,7 @@ jobs:
           asset_path: ./build/libs/object-store-plugin-${{ steps.get_version.outputs.VERSION }}.jar
           asset_name: object-store-plugin-${{ steps.get_version.outputs.VERSION }}.jar
           asset_content_type: application/octet-stream
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

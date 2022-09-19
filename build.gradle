@@ -1,6 +1,7 @@
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.13.6'
     id 'groovy'
+    id "maven-publish"
 }
 
 group = "org.rundeck.plugins"
@@ -72,4 +73,22 @@ jar {
 jar.dependsOn(copyToLib)
 tasks.withType(Test) {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/pdhw822/rdp-object-store-plugin")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
