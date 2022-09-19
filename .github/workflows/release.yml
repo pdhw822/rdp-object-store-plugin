@@ -45,6 +45,8 @@ jobs:
           asset_name: object-store-plugin-${{ steps.get_version.outputs.VERSION }}.jar
           asset_content_type: application/octet-stream
       - name: Publish package
-        run: mvn --batch-mode deploy
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
